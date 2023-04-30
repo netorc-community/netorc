@@ -48,10 +48,10 @@ class Settings(BaseSettings):
         env_file_enconding = "utf-8"
 
 
-netorc = Settings()
+settings = Settings()
 
 tasks = [
-    (str(netorc.task_dir) + "/" + x).replace("/", ".").strip(".py")
-    for x in os.listdir(str(netorc.task_dir))
+    (str(settings.task_dir) + "/" + x).replace("/", ".").strip(".py")
+    for x in os.listdir(str(settings.task_dir))
     if not x.startswith("__") and x.endswith(".py")
 ]

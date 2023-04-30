@@ -2,11 +2,11 @@
 logger.py
 """
 import logging
-from controller.settings import netorc
+from controller.settings import settings
 
 logger = logging.getLogger(__name__)
 
-logger.setLevel(netorc.log_level)
+logger.setLevel(settings.log_level)
 
 console = logging.StreamHandler()
 
@@ -15,10 +15,10 @@ file = logging.handlers.RotatingFileHandler(
 )
 
 syslog = logging.handlers.SysLogHandler(
-    address=(netorc.syslog_server, netorc.syslog_port)
+    address=(settings.syslog_server, settings.syslog_port)
 )
 
-formatter = logging.Formatter(netorc.log_format)
+formatter = logging.Formatter(settings.log_format)
 
 console.setFormatter(formatter)
 logger.addHandler(console)
