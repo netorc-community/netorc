@@ -6,41 +6,52 @@ This is not best practice, we recommend using a .env or a secret manager, see: <
 
 """
 import os
+from pydantic import BaseSettings, RedisDsn, DirectoryPath
 
-# We do NOT recommended to change this setting.
-REDIS = "redis://redis:6379"
 
-# Ensure this is the correct timezone.
-TIMEZONE = "Europe/London"
+class Settings(BaseSettings):
+    """NetORC settings management"""
 
-UTC = True
+    # We do NOT recommended to change this setting.
+    rediss: RedisDsn = "redis://redis:6379"
 
-# Censors celery configuration, passwords, api keys.
-# We do NOT recommended to change this setting.
-CENSORED = True
+    # Ensure this is the correct timezone.
+    timezone: str = "Europe/London"
+    utc: bool = True
 
-# Tasks can be queued with a priority.
-# This is best effort and does not guarantee a faster execution.
-# We do NOT recommended to change this setting.
-PRIORITY_LEVELS = 10  # 0-9
+    # Censors celery configuration, passwords, api keys.
+    # We do NOT recommended to change this setting.
+    censored: bool = True
 
-# The default log level is set to info.
-# To change this value, see: https://docs.python.org/3/library/logging.html#logging-levels
-LOG_LEVEL = 20
+    # Tasks can be queued with a priority.
+    # This is best effort and does not guarantee a faster execution.
+    # We do NOT recommended to change this setting.
+    priority_levels: int = 10  # 0-9
 
-# The default log handlers are console, file and syslog.
-LOG_FORMAT = "%(asctime)s %(levelname)s: %(message)s"
+    # The default log level is set to info.
+    # To change this value, see: https://docs.python.org/3/library/logging.html#logging-levels
+    log_level: int = 20
+    log_format: str = "%(asctime)s %(levelname)s: %(message)s"
 
-# Syslog messages are sent using UDP, for TCP, see <link>.
-# LOG_USER facility.
-SYSLOG_SERVER = "localhost"
-SYSLOG_PORT = 514
+    # Syslog messages are sent using UDP, for TCP, see <link>.
+    # LOG_USER facility.
+    syslog_server: str = "localhost"
+    syslog_port: int = 514
 
-# Default task directory.
-TASK_DIR = "controller/worker/tasks/"
+    # Default task directory.
+    task_dir: DirectoryPath = "controller/worker/tasks"
 
-TASKS = [
-    (TASK_DIR + x).replace("/", ".").strip(".py")
-    for x in os.listdir(TASK_DIR)
+    class Config:
+        """Modify the behaviour of settings management"""
+
+        env_file = ".env"
+        env_file_enconding = "utf-8"
+
+
+netorc = Settings()
+
+tasks = [
+    (str(netorc.task_dir) + "/" + x).replace("/", ".").strip(".py")
+    for x in os.listdir(str(netorc.task_dir))
     if not x.startswith("__") and x.endswith(".py")
 ]
