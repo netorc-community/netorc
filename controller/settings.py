@@ -1,8 +1,8 @@
 """
 NetORC configuration file.
 
-We have kept connection and secret prameters used by modules in this file.
-This is not best practice, we recommend using a .env or a secret manager, see: <link>
+We have kept the default connection and secret prameters used by modules in this file.
+This is not best practice, we recommend overriding these using a .env or a secret manager, see: <link>
 
 """
 import os
