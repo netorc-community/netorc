@@ -7,6 +7,12 @@ This is not best practice, we recommend using a .env or a secret manager, see: <
 """
 import os
 
+# Default API Key Header
+API_KEY_HEADER = "netorc-x-token"
+
+# List of Allowed API Keys
+API_KEYS = []
+
 # We do NOT recommended to change this setting.
 REDIS = "redis://redis:6379"
 

@@ -3,6 +3,7 @@ main.py
 """
 from fastapi import FastAPI
 from controller.misc.decorators import queue_task
+from controller.misc.dependencies import RequireAPIAuth
 from controller.worker.tasks.example import example_task
 from controller.api import data
 from controller.api import task
@@ -15,6 +16,6 @@ fastapi.include_router(metrics.router)
 
 
 @fastapi.get("/api")
-async def example() -> dict:
+async def example(auth: RequireAPIAuth) -> dict:
     task = queue_task(example_task)
     return {"id": task.id}
