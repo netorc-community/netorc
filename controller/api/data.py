@@ -8,6 +8,6 @@ router = APIRouter(prefix="/api/data", tags=["data"])
 
 
 @router.get("/task/{task_id}")
-async def task_result(task_id: str) -> dict:
+async def task_result(task_id: str) -> list:
     task = celery.AsyncResult(task_id)
-    return {"status": task.status, "result": task.result}
+    return [{"status": task.status, "result": task.result}]
