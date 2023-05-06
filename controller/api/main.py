@@ -15,6 +15,6 @@ fastapi.include_router(metrics.router)
 
 
 @fastapi.get("/api")
-async def example() -> dict:
+async def example() -> list:
     task = queue_task(example_task)
-    return {"id": task.id}
+    return [{"id": task.id}]

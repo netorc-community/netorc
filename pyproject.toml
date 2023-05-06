@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "netorc"
+version = "0.1"
+description = ""
+authors = ["Antonió <antonio@netorc.dev>"]
+license = "Apache-2.0 license"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.95.1"
+celery = "^5.2.7"
+pydantic = "^1.10.7"
+redis = "^4.5.4"
+uvicorn = "^0.22.0"
+watchdog = "^3.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

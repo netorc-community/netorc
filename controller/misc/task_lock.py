@@ -5,7 +5,7 @@ import time
 import uuid
 import redis
 
-from controller import settings
+from controller.settings import settings
 from controller.misc.exceptions import AddLockException
 from controller.metrics.logger import logger
 
@@ -15,11 +15,12 @@ class TaskLock:
 
     def __init__(self, task_lock_key: str = None, timeout: int = 30):
         try:
-            self.conn = redis.from_url(settings.REDIS + "/1")
-            logger.info("Connected to redis instance: %s", settings.REDIS)
+            self.conn = redis.from_url(settings.rediss)
+            logger.info("Connected to redis instance: %s", settings.rediss)
         except Exception as exc:
             logger.critical(
-                "An exception occurred connecting to redis instance: %s", settings.REDIS
+                "An exception occurred connecting to redis instance: %s",
+                settings.rediss,
             )
             raise exc
 
