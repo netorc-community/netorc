@@ -2,7 +2,7 @@
 celery.py
 """
 from celery import Celery
-from controller.settings import settings, tasks
+from settings import settings, tasks
 
 celery = Celery(include=tasks)
 

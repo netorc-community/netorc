@@ -2,7 +2,7 @@
 logger.py
 """
 import logging
-from controller.settings import settings
+from settings import settings
 
 logger = logging.getLogger(__name__)
 

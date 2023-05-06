@@ -5,9 +5,9 @@ import time
 import uuid
 import redis
 
-from controller.settings import settings
-from controller.misc.exceptions import AddLockException
-from controller.metrics.logger import logger
+from settings import settings
+from miscellaneous.addons.exceptions import AddLockException
+from miscellaneous.metrics.logging import logger
 
 
 class TaskLock:

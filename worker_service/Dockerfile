@@ -1,4 +1,4 @@
-# worker dockerfile
+# worker service dockerfile
 
 FROM python:3.10-slim-bullseye
 
@@ -10,7 +10,7 @@ COPY ./requirements.txt /netorc/requirements.txt
 
 RUN pip install --no-cache-dir -r /netorc/requirements.txt
 
-COPY ./controller /netorc/controller
+COPY ./ /netorc
 
 RUN adduser netorc
 

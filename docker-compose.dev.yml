@@ -5,14 +5,14 @@ version: "3.8"
 services:
 
   controller:
-    container_name: netorc-controller
+    container_name: api-service
     build:
       context: ./
-      dockerfile: ./controller/Dockerfile
+      dockerfile: ./api_service/Dockerfile
     ports:
       - 8000:80
     restart: unless-stopped
-    command: "uvicorn controller.api.main:fastapi --reload --port 80 --host 0.0.0.0"
+    command: "uvicorn api_service.main:fastapi --reload --port 80 --host 0.0.0.0"
     volumes:
       - .:/netorc/
     deploy:
@@ -22,7 +22,7 @@ services:
           memory: 100M
 
   redis:
-    container_name: netorc-redis
+    container_name: redis
     image: redis:6.2-bullseye
     restart: unless-stopped
     depends_on:
@@ -34,11 +34,11 @@ services:
           memory: 100M
 
   worker:
-    container_name: netorc-worker
+    container_name: worker-service
     build:
       context: ./
-      dockerfile: ./controller/worker/Dockerfile
-    command: "watchmedo auto-restart -d controller/ -p '*.py' --recursive -- celery -A controller.misc worker --loglevel=INFO"
+      dockerfile: ./worker_service/Dockerfile
+    command: "watchmedo auto-restart -d worker_service/ -p '*.py' --recursive -- celery -A miscellaneous.addons worker --loglevel=INFO"
     volumes:
       - .:/netorc/
     depends_on:
