@@ -2,7 +2,7 @@
 decorators.py
 """
 from functools import wraps
-from miscellaneous.addons.task_lock import TaskLock
+from miscellaneous.addons.tasklock import TaskLock
 from miscellaneous.metrics.logging import logger
 from miscellaneous.addons.exceptions import AddLockException
 
