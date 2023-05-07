@@ -6,14 +6,17 @@ This is not best practice, we recommend overriding these using a .env or a secre
 
 """
 import os
-from pydantic import BaseSettings, RedisDsn, DirectoryPath
+from pydantic import BaseSettings, RedisDsn, DirectoryPath, PostgresDsn
 
 
 class Settings(BaseSettings):
     """NetORC settings management"""
 
     # We do NOT recommended to change this setting.
-    rediss: RedisDsn = "redis://redis:6379"
+    database: PostgresDsn = "postgresql+asyncpg://netorc:netorc123@postgres:5432/netorc"
+
+    # We do NOT recommended to change this setting.
+    redis: RedisDsn = "redis://redis:6379"  # TODO: redis or rediss
 
     # Ensure this is the correct timezone.
     timezone: str = "Europe/London"
