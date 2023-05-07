@@ -69,6 +69,7 @@ def queue_task(func, priority: int = 0, *args, **kwargs):
     and its arguments to be abstracted.
     """
 
+    @wraps(func)
     def wrapper():
         try:
             getattr(func, "apply_async")
