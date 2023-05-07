@@ -15,12 +15,12 @@ class TaskLock:
 
     def __init__(self, task_lock_key: str = None, timeout: int = 30):
         try:
-            self.conn = redis.from_url(settings.rediss)
-            logger.info("Connected to redis instance: %s", settings.rediss)
+            self.conn = redis.from_url(settings.redis)
+            logger.info("Connected to redis instance: %s", settings.redis)
         except Exception as exc:
             logger.critical(
                 "An exception occurred connecting to redis instance: %s",
-                settings.rediss,
+                settings.redis,
             )
             raise exc
 
