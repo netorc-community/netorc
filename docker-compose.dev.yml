@@ -4,7 +4,7 @@
 version: "3.8"
 services:
 
-  controller:
+  api-service:
     container_name: api-service
     build:
       context: ./
@@ -22,18 +22,35 @@ services:
           memory: 100M
 
   redis:
-    container_name: redis
+    container_name: netorc-redis
     image: redis:6.2-bullseye
     restart: unless-stopped
     depends_on:
-      - controller
+      - api-service
     deploy:
       resources:
         limits:
           cpus: "0.5"
           memory: 100M
 
-  worker:
+  postgres:
+    container_name: netorc-postgres
+    image: postgres:15.2-bullseye
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: netorc
+      POSTGRES_PASSWORD: netorc123
+      POSTGRES_DB: netorc
+
+    depends_on:
+      - api-service
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 100M
+
+  worker-service:
     container_name: worker-service
     build:
       context: ./
@@ -42,8 +59,9 @@ services:
     volumes:
       - .:/netorc/
     depends_on:
-      - controller
+      - api-service
       - redis
+      - postgres
     restart: unless-stopped
     deploy:
       resources:
