@@ -7,13 +7,13 @@ from fastapi.responses import JSONResponse
 from miscellaneous.addons.exceptions import TMFException
 from miscellaneous.addons.decorators import queue_task
 
-from api_service.tmforum import tmf_653
+from api_service.tmforum import tmf653
 
 from worker_service.tasks.example import example_task
 
 
 fastapi = FastAPI()
-fastapi.include_router(tmf_653.router)  # Service Test Management
+fastapi.include_router(tmf653.router)  # Service Test Management
 
 
 @fastapi.exception_handler(TMFException)
