@@ -1,0 +1,4 @@
+"""
+manage.py
+"""
+import sys
