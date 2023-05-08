@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     """NetORC settings management"""
 
     # We do NOT recommended to change this setting.
-    database: PostgresDsn = "postgresql+asyncpg://netorc:netorc123@postgres:5432/netorc"
+    database: PostgresDsn = "postgresql://netorc:netorc123@postgres:5432/netorc"
 
     # We do NOT recommended to change this setting.
     redis: RedisDsn = "redis://redis:6379"  # TODO: redis or rediss
