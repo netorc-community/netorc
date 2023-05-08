@@ -3,19 +3,7 @@ exceptions.py
 """
 
 
-class AddLockException(Exception):
-    """Exception raised for lock not aquired"""
-
-    def __init__(self):
-        self.message = (
-            "Unable to add lock to task. A task using the same key is running."
-        )
-        super().__init__(self.message)
-
-
-class TMFException(Exception):
-    """TMF630 3.4 User Application and Extended Error Codes"""
-
+class APIException(Exception):
     def __init__(
         self,
         status_code: int,
@@ -33,3 +21,11 @@ class TMFException(Exception):
         self.reference_error = reference_error
         self.class_type = class_type
         self.schema_location = schema_location
+
+
+class AddLockException(Exception):
+    def __init__(self):
+        self.message = (
+            "Unable to add lock to task. A task using the same key is running."
+        )
+        super().__init__(self.message)
