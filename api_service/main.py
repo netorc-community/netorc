@@ -1,25 +1,15 @@
-"""
-main.py
-"""
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
-from miscellaneous.addons.exceptions import TMFException
-from miscellaneous.addons.decorators import queue_task
-
-from api_service.tmforum import tmf653
-
-from worker_service.tasks.example import example_task
-
+from miscellaneous.addons.exceptions import APIException
+from api_service.service import activation
 
 fastapi = FastAPI()
-fastapi.include_router(tmf653.router)  # Service Test Management
+fastapi.include_router(activation.router)
 
 
-@fastapi.exception_handler(TMFException)
-async def tmf_exception_handler(request: Request, exc: TMFException):
-    """TMF 630 3.4 global exception handler"""
-
+@fastapi.exception_handler(APIException)
+async def exception_handler(request: Request, exc: APIException):
     # Optional
     if None not in (
         exc.message,
@@ -44,9 +34,3 @@ async def tmf_exception_handler(request: Request, exc: TMFException):
         status_code=exc.status_code,
         content={"code": exc.code, "reason": exc.reason},
     )
-
-
-@fastapi.get("/api")
-async def example() -> list:
-    task = queue_task(example_task)
-    return [{"id": task.id}]
