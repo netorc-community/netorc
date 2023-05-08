@@ -41,7 +41,8 @@ services:
       POSTGRES_USER: netorc
       POSTGRES_PASSWORD: netorc123
       POSTGRES_DB: netorc
-
+    ports:
+      - 5432:5432
     depends_on:
       - api-service
     deploy:
