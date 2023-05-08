@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="netorc logo" src="https://avatars.githubusercontent.com/u/130744316?s=200&v=4" width="200"/>
+    <img alt="netorc logo" src="miscellaneous/images/default-monochrome-black.png" width="500"/>
 </h1>
 
 <p align="center">
