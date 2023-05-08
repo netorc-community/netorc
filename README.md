@@ -1,7 +1,8 @@
+<br/>
 <h1 align="center">
-    <img alt="netorc logo" src="miscellaneous/images/default-monochrome-black.png" width="500"/>
+    <img alt="netorc logo" src="miscellaneous/images/default-monochrome-black.png" width="400"/>
 </h1>
-
+<br/>
 <p align="center">
 <img src="https://badgen.net/badge/version/demo/green?icon=github" alt="netorc status"/>&nbsp;<a href="https://github.com/netorc-community/netorc/issues" 
 ><img src="https://badgen.net/github/open-issues/netorc-community/netorc" alt="netorc open issues" /></a>&nbsp;<a href="https://github.com/netorc-community/netorc/issues?q=is%3Aissue+is%3Aclosed+" 
