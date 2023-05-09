@@ -5,8 +5,6 @@ from datetime import datetime
 from typing import Optional
 from sqlmodel import Field, SQLModel
 
-# User Models
-
 
 class User(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -20,8 +18,6 @@ class User(SQLModel, table=True):
     api_key_salt: str
     created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
     last_updated: datetime = Field(default_factory=datetime.utcnow, nullable=False)
-
-# Service Models
 
 
 class Service(SQLModel, table=True):

@@ -21,10 +21,10 @@ def get_service(id: str = None) -> list:
     Arguments can be included in the uri to be added to the database query.
 
     Args:
-        id: an optional services id filter.
+        id: an optional service id filter.
 
     Returns:
-        A list of dictionaries containing attributes for each service.
+        A list of dictionary/s containing attributes for a service.
 
     Raises:
 
