@@ -48,7 +48,7 @@ def get_service(id: str = None) -> list:
 @router.post("/service", response_model=List[Service])
 async def post_service(service: Service) -> list:
     """
-    Creates a new service/'s. The service is added to the database once the task completes.
+    Creates new service/s. The service/s is added to the database once the task completes.
 
     Args:
 
