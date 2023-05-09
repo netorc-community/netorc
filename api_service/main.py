@@ -2,20 +2,29 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 from miscellaneous.addons.exceptions import APIException
-from api_service.service import activation
+from api_service.services import service
 
-fastapi = FastAPI()
-fastapi.include_router(activation.router)
+fastapi = FastAPI(title="NetORC", version="0.0.1")
+fastapi.include_router(service.router)
 
 
 @fastapi.exception_handler(APIException)
 async def exception_handler(request: Request, exc: APIException):
-    # Optional
+    """
+    Exception handler for APIException. Ensures meaningful errors are sent to users/systems.
+
+    Args:
+        request: The request object.
+        exc: APIException object.
+
+    Returns:
+        A json response body using attributes of the exc object.
+    """
+
+    # Optional attributes
     if None not in (
         exc.message,
         exc.reference_error,
-        exc.class_type,
-        exc.schema_location,
     ):
         return JSONResponse(
             status_code=exc.status_code,
@@ -25,11 +34,9 @@ async def exception_handler(request: Request, exc: APIException):
                 "message": exc.message,
                 "status": exc.status_code,
                 "referenceError": exc.reference_error,
-                "@type": exc.class_type,
-                "@schemaLocation": exc.schema_location,
             },
         )
-    # Mandatory
+    # Mandatory attributes
     return JSONResponse(
         status_code=exc.status_code,
         content={"code": exc.code, "reason": exc.reason},
