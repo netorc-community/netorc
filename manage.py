@@ -10,7 +10,7 @@ from miscellaneous.database.db import engine
 
 def main():
     if "migrate" in sys.argv:
-        SQLModel.metadata.create_all(engine)  # Creates all the tables in the database
+        SQLModel.metadata.create_all(engine)
 
 
 if __name__ == "__main__":

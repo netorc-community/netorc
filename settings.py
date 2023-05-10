@@ -13,11 +13,13 @@ from pydantic import BaseSettings, RedisDsn, DirectoryPath, PostgresDsn
 class Settings(BaseSettings):
     """NetORC settings management"""
 
+    # Header key used for authentication.
     api_key_header = "netorc-x-token"
-    # We do NOT recommended to change this setting.
+
+    # We do NOT recommend to change this setting.
     database: PostgresDsn = "postgresql://netorc:netorc123@postgres:5432/netorc"
 
-    # We do NOT recommended to change this setting.
+    # We do NOT recommend to change this setting.
     redis: RedisDsn = "redis://redis:6379"  # TODO: redis or rediss
 
     # Ensure this is the correct timezone.
@@ -25,12 +27,12 @@ class Settings(BaseSettings):
     utc: bool = True
 
     # Censors celery configuration, passwords, api keys.
-    # We do NOT recommended to change this setting.
+    # We do NOT recommend to change this setting.
     censored: bool = True
 
     # Tasks can be queued with a priority.
-    # This is best effort and does not guarantee a faster execution.
-    # We do NOT recommended to change this setting.
+    # This is "best effort" and does not guarantee a faster execution.
+    # We do NOT recommend to change this setting.
     priority_levels: int = 10  # 0-9
 
     # The default log level is set to info.
