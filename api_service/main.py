@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
-from miscellaneous.addons.exceptions import APIException
-from api_service.services import service
 from api_service.headers import require_general_authentication_header
+from api_service.services import service
+from miscellaneous.addons.exceptions import APIException
 
 fastapi = FastAPI(title="NetORC", version="0.0.1", dependencies=[require_general_authentication_header])
 fastapi.include_router(service.router)
@@ -24,8 +24,8 @@ async def exception_handler(request: Request, exc: APIException):
 
     # Optional attributes
     if None not in (
-        exc.message,
-        exc.reference_error,
+            exc.message,
+            exc.reference_error,
     ):
         return JSONResponse(
             status_code=exc.status_code,

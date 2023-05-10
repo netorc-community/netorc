@@ -2,8 +2,8 @@
 db.py
 """
 from sqlmodel import create_engine, Session
-from settings import settings
 
+from settings import settings
 
 engine = create_engine(settings.database, echo=True)
 

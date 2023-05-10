@@ -2,11 +2,13 @@
 service.py
 """
 from typing import List
+
 from fastapi import APIRouter, Depends
 from sqlmodel import Session, select
+
+from miscellaneous.addons.exceptions import APIException
 from miscellaneous.database.db import get_session
 from miscellaneous.database.tables import Service
-from miscellaneous.addons.exceptions import APIException
 
 router = APIRouter(
     prefix="/api/services/v1",

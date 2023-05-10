@@ -3,6 +3,7 @@ tables.py
 """
 from datetime import datetime
 from typing import Optional
+
 from sqlmodel import Field, SQLModel
 
 
@@ -37,5 +38,3 @@ class ServiceType(SQLModel, table=True):
     description: str = Field(max_length=256, default=None)
     version: Optional[int] = Field(default=None)  # Service specific version
     href: str
-
-

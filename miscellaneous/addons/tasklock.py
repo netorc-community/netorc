@@ -3,11 +3,12 @@ task_lock.py
 """
 import time
 import uuid
+
 import redis
 
-from settings import settings
 from miscellaneous.addons.exceptions import AddLockException
 from miscellaneous.metrics.logging import logger
+from settings import settings
 
 
 class TaskLock:

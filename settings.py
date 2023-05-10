@@ -1,11 +1,12 @@
 """
 NetORC configuration file.
 
-We have kept the default connection and secret prameters used by modules in this file.
+We have kept the default connection and secret parameters used by modules in this file.
 This is not best practice, we recommend overriding these using a .env or a secret manager, see: <link>
 
 """
 import os
+
 from pydantic import BaseSettings, RedisDsn, DirectoryPath, PostgresDsn
 
 
@@ -49,7 +50,7 @@ class Settings(BaseSettings):
         """Modify the behaviour of settings management"""
 
         env_file = ".env"
-        env_file_enconding = "utf-8"
+        env_file_encoding = "utf-8"
 
 
 settings = Settings()

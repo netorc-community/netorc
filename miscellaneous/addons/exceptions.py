@@ -5,12 +5,12 @@ exceptions.py
 
 class APIException(Exception):
     def __init__(
-        self,
-        status_code: int,
-        code: str,
-        reason: str,
-        message: str = None,
-        reference_error: str = None,
+            self,
+            status_code: int,
+            code: str,
+            reason: str,
+            message: str = None,
+            reference_error: str = None,
     ):
         self.status_code = status_code
         self.code = code
