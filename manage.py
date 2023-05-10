@@ -2,15 +2,21 @@
 manage.py
 """
 import sys
-from sqlmodel import SQLModel
+from sqlmodel import SQLModel, Session
 from miscellaneous.database.db import engine
 from miscellaneous.database import tables
 
+
+Default = tables.User(email="test", username="test", password="test", api_key="$pbkdf2-sha256$29000$CUEIAQAAwBjD.F/LWSsF4A$.zq9lWzf3/2BKZM6u.tIxU2wXOZzL5ERDOMtprpMpl8")
 
 def main():
     if "migrate" in sys.argv:
         SQLModel.metadata.create_all(engine)  # Creates all the tables in the database
 
+    with Session(engine) as session:
+        session.add(Default)
+        session.commit()
+        session.close()
 
 if __name__ == "__main__":
     main()

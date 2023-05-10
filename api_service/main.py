@@ -3,8 +3,9 @@ from fastapi.responses import JSONResponse
 
 from miscellaneous.addons.exceptions import APIException
 from api_service.services import service
+from api_service.headers import require_general_authentication_header
 
-fastapi = FastAPI(title="NetORC", version="0.0.1")
+fastapi = FastAPI(title="NetORC", version="0.0.1", dependencies=[require_general_authentication_header])
 fastapi.include_router(service.router)
 
 
