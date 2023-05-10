@@ -24,8 +24,8 @@ def a_task_lock_task(task_lock_key: str = None) -> None:
 
 """
 import time
-from controller.misc.celery import celery
-from controller.misc.decorators import task_lock
+from miscellaneous.addons.celery import celery
+from miscellaneous.addons.decorators import task_lock
 
 
 @celery.task()

@@ -1,19 +1,24 @@
 """
 NetORC configuration file.
 
-We have kept the default connection and secret prameters used by modules in this file.
+We have kept the default connection and secret parameters used by modules in this file.
 This is not best practice, we recommend overriding these using a .env or a secret manager, see: <link>
 
 """
 import os
-from pydantic import BaseSettings, RedisDsn, DirectoryPath
+
+from pydantic import BaseSettings, RedisDsn, DirectoryPath, PostgresDsn
 
 
 class Settings(BaseSettings):
     """NetORC settings management"""
 
+    api_key_header = "netorc-x-token"
     # We do NOT recommended to change this setting.
-    rediss: RedisDsn = "redis://redis:6379"
+    database: PostgresDsn = "postgresql://netorc:netorc123@postgres:5432/netorc"
+
+    # We do NOT recommended to change this setting.
+    redis: RedisDsn = "redis://redis:6379"  # TODO: redis or rediss
 
     # Ensure this is the correct timezone.
     timezone: str = "Europe/London"
@@ -39,13 +44,13 @@ class Settings(BaseSettings):
     syslog_port: int = 514
 
     # Default task directory.
-    task_dir: DirectoryPath = "controller/worker/tasks"
+    task_dir: DirectoryPath = "worker_service/tasks"
 
     class Config:
         """Modify the behaviour of settings management"""
 
         env_file = ".env"
-        env_file_enconding = "utf-8"
+        env_file_encoding = "utf-8"
 
 
 settings = Settings()

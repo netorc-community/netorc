@@ -2,9 +2,10 @@
 decorators.py
 """
 from functools import wraps
-from controller.misc.task_lock import TaskLock
-from controller.metrics.logger import logger
-from controller.misc.exceptions import AddLockException
+
+from miscellaneous.addons.exceptions import AddLockException
+from miscellaneous.addons.tasklock import TaskLock
+from miscellaneous.metrics.logging import logger
 
 
 def task_lock(func):
@@ -69,6 +70,7 @@ def queue_task(func, priority: int = 0, *args, **kwargs):
     and its arguments to be abstracted.
     """
 
+    @wraps(func)
     def wrapper():
         try:
             getattr(func, "apply_async")

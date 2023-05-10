@@ -2,7 +2,8 @@
 celery.py
 """
 from celery import Celery
-from controller.settings import settings, tasks
+
+from settings import settings, tasks
 
 celery = Celery(include=tasks)
 
@@ -11,8 +12,8 @@ celery.conf.timezone = settings.timezone
 celery.conf.enable_utc = settings.utc
 
 # Broker & Backend
-celery.conf.broker_url = settings.rediss
-celery.conf.result_backend = settings.rediss
+celery.conf.broker_url = settings.redis
+celery.conf.result_backend = settings.redis
 
 # Censored
 celery.conf.humanize(with_defaults=False, censored=settings.censored)
