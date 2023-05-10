@@ -12,6 +12,7 @@ from pydantic import BaseSettings, RedisDsn, DirectoryPath, PostgresDsn
 class Settings(BaseSettings):
     """NetORC settings management"""
 
+    api_key_header = "netorc-x-token"
     # We do NOT recommended to change this setting.
     database: PostgresDsn = "postgresql://netorc:netorc123@postgres:5432/netorc"
 
