@@ -1,13 +1,14 @@
 from typing import Any
-from passlib.hash import pbkdf2_sha256
-from sqlmodel import Session, select
+
 from fastapi import Response, Depends, Security
 from fastapi.security.api_key import APIKeyHeader
+from passlib.hash import pbkdf2_sha256
+from sqlmodel import Session, select
 
-from settings import settings
+from miscellaneous.addons.exceptions import APIException
 from miscellaneous.database.db import get_session
 from miscellaneous.database.tables import User
-from miscellaneous.addons.exceptions import APIException
+from settings import settings
 
 
 async def general_http_headers(response: Response) -> Any:
