@@ -2,12 +2,15 @@
 manage.py
 """
 import sys
+
 from sqlmodel import SQLModel, Session
-from miscellaneous.database.db import engine
+
 from miscellaneous.database import tables
+from miscellaneous.database.db import engine
 
+Default = tables.User(email="test", username="test", password="test",
+                      api_key="$pbkdf2-sha256$29000$CUEIAQAAwBjD.F/LWSsF4A$.zq9lWzf3/2BKZM6u.tIxU2wXOZzL5ERDOMtprpMpl8")
 
-Default = tables.User(email="test", username="test", password="test", api_key="$pbkdf2-sha256$29000$CUEIAQAAwBjD.F/LWSsF4A$.zq9lWzf3/2BKZM6u.tIxU2wXOZzL5ERDOMtprpMpl8")
 
 def main():
     if "migrate" in sys.argv:
@@ -18,9 +21,9 @@ def main():
         session.commit()
         session.close()
 
+
 if __name__ == "__main__":
     main()
-
 
 # with Session(engine) as SessionLocal:
 #     SessionLocal.add(TestService)
