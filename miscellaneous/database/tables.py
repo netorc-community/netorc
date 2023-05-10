@@ -12,10 +12,8 @@ class User(SQLModel, table=True):
     lastname: Optional[str]
     email: str
     username: str = Field(index=True)
-    password: str  # Cannot use pydantic secret string :(
-    password_salt: str
-    api_key: str  # Cannot use pydantic secret string :(
-    api_key_salt: str
+    password: str
+    api_key: str
     created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
     last_updated: datetime = Field(default_factory=datetime.utcnow, nullable=False)
 

@@ -12,9 +12,7 @@ class UserCreate(SQLModel):
     email: str
     username: str = Field(index=True)
     password: str
-    password_salt: str
     api_key: str
-    api_key_salt: str
 
 
 class UserRead(SQLModel):
