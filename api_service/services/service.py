@@ -30,7 +30,7 @@ def get_service(id: str = None, session: Session = Depends(get_session)) -> list
         A list of dictionary/s containing attributes for a service.
 
     Raises:
-
+        APIException: 500 status code.
     """
     try:
         if id is not None:
