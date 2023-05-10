@@ -2,9 +2,9 @@
 service.py
 """
 from typing import List
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from sqlmodel import Session, select
-from miscellaneous.database.db import engine
+from miscellaneous.database.db import get_session
 from miscellaneous.database.tables import Service
 from miscellaneous.addons.exceptions import APIException
 
@@ -15,13 +15,14 @@ router = APIRouter(
 
 
 @router.get("/service", response_model=List[Service])
-def get_service(id: str = None) -> list:
+def get_service(id: str = None, session: Session = Depends(get_session)) -> list:
     """
     Returns a list of service/'s from the database.
     Arguments can be included in the uri to be added to the database query.
 
     Args:
         id: an optional service id filter.
+        session: database session dependency.
 
     Returns:
         A list of dictionary/s containing attributes for a service.
@@ -30,16 +31,15 @@ def get_service(id: str = None) -> list:
 
     """
     try:
-        with Session(engine) as session:
-            if id is not None:
-                service = session.get(Service, id)
-                if not service:
-                    raise APIException(status_code=404, code="tbd", reason="tbd")
-                return [service]
+        if id is not None:
+            service = session.get(Service, id)
+            if not service:
+                raise APIException(status_code=404, code="tbd", reason="tbd")
+            return [service]
 
-            query = select(Service)
-            result = session.exec(query)
-            return [x for x in result]
+        query = select(Service)
+        result = session.exec(query)
+        return [x for x in result]
 
     except Exception as exc:
         raise APIException(status_code=500, code="tbd", reason="tbd") from exc
