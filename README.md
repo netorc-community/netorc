@@ -1,6 +1,6 @@
 <br/>
 <h1 align="center">
-    <img alt="netorc logo" src="miscellaneous/landing/page/images/default-monochrome-black.png" width="400"/>
+    <img alt="netorc logo" src="miscellaneous/landing/page/images/logo-cover.png" width="400"/>
 </h1>
 <br/>
 <p align="center">
