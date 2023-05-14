@@ -1,0 +1,49 @@
+body {
+    background-color: #132554;
+    font-family: system-ui,-apple-system;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.text-leading {
+    font-size: 1.25rem;
+    font-weight: 300;
+
+}
+
+.text-link {
+    color: #00a3dd;
+}
+
+.brand {
+    max-width: 900px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px 10px 0px 10px;
+}
+
+.prompt {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
