@@ -1,6 +1,6 @@
 body {
     background-color: #132554;
-    font-family: system-ui,-apple-system;
+    font-family: sans-serif;
 }
 
 nav {
@@ -21,18 +21,20 @@ p {
     color: white;
 }
 
+a {
+    color: #00a3dd;
+    text-decoration-thickness: 3px;
+    text-decoration-color: #00a3dd;
+}
+
 .text-leading {
     font-size: 1.25rem;
     font-weight: 300;
 
 }
 
-.text-link {
-    color: #00a3dd;
-}
-
 .brand {
-    max-width: 900px;
+    max-width: 90%;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
