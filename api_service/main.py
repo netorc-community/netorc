@@ -6,6 +6,7 @@ from api_service.services import service
 from miscellaneous.addons.exceptions import APIException
 
 fastapi = FastAPI(title="NetORC", version="0.0.1")
+# from api_service.headers import require_general_authentication_header
 # dependencies=[require_general_authentication_header]
 fastapi.include_router(service.router)
 fastapi.mount("/static", StaticFiles(directory="miscellaneous/landing/page"))
