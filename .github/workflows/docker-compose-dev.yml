@@ -1,4 +1,4 @@
-name: Docker Compose
+name: Docker Compose Dev
 
 on: push
 
@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Local Logs
+      - name: Make local logs directory
         run: mkdir logs && touch logs/netorc.log && chmod 777 logs/netorc.log
-      - name: Docker Compose
+      - name: Run docker compose file
         run: docker compose -f docker-compose.dev.yml up -d
 
