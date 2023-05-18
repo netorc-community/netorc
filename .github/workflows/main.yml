@@ -8,5 +8,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Start containers
-        run: docker compose -f docker-compose.dev.yml
+        run: docker compose -f docker-compose.dev.yml up
 
