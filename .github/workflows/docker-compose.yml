@@ -10,5 +10,5 @@ jobs:
       - name: Local Logs
         run: mkdir logs && touch logs/netorc.log && chmod 777 logs/netorc.log
       - name: Docker Compose
-        run: docker compose -d -f docker-compose.dev.yml up
+        run: docker compose -f docker-compose.dev.yml up -d
 
