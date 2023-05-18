@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Make local log directory
-        run: mkdir logs
+        run: mkdir logs && touch logs/netorc.log
       - name: Start containers
         run: docker compose -f docker-compose.dev.yml up
 
