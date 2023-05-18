@@ -4,13 +4,13 @@ manage.py
 import sys
 
 from sqlmodel import SQLModel
-
-from miscellaneous.database.db import engine
+from core import db
+from core.db import tables
 
 
 def main():
     if "migrate" in sys.argv:
-        SQLModel.metadata.create_all(engine)
+        SQLModel.metadata.create_all(db.engine)
 
 
 if __name__ == "__main__":
