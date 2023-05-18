@@ -6,8 +6,8 @@ import uuid
 
 import redis
 
-from miscellaneous.addons.exceptions import AddLockException
-from miscellaneous.metrics.logging import logger
+from core.addons.exceptions import AddLockException
+from core.metrics.logging import logger
 from settings import settings
 
 

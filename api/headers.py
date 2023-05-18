@@ -5,9 +5,9 @@ from fastapi.security.api_key import APIKeyHeader
 from passlib.hash import pbkdf2_sha256
 from sqlmodel import Session, select
 
-from miscellaneous.addons.exceptions import APIException
-from miscellaneous.database.db import get_session
-from miscellaneous.database.tables import User
+from core.addons.exceptions import APIException
+from core.db import get_session
+from core.db.tables import User
 from settings import settings
 
 
@@ -23,11 +23,11 @@ api_key_header = APIKeyHeader(name=settings.api_key_header, auto_error=False)
 def general_authentication_header(api_key: str = Security(api_key_header),
                                   session: Session = Depends(get_session)) -> Any:
     """
-    Retrieves api key in request header and checks api key exists in user database.
+    Retrieves api key in request header and checks api key exists in user db.
 
     Args:
         api_key: request api key
-        session: database session dependency.
+        session: db session dependency.
 
     Raises:
         APIException: 401 and 500 status codes.

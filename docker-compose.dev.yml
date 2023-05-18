@@ -8,11 +8,11 @@ services:
     container_name: api-service
     build:
       context: ./
-      dockerfile: ./api_service/Dockerfile
+      dockerfile: api/Dockerfile
     ports:
       - 8000:80
     restart: unless-stopped
-    command: "uvicorn api_service.main:fastapi --reload --port 80 --host 0.0.0.0"
+    command: "uvicorn api.main:fastapi --reload --port 80 --host 0.0.0.0"
     volumes:
       - .:/netorc/
     deploy:
@@ -55,8 +55,8 @@ services:
     container_name: worker-service
     build:
       context: ./
-      dockerfile: ./worker_service/Dockerfile
-    command: "watchmedo auto-restart -d worker_service/ -p '*.py' --recursive -- celery -A miscellaneous.addons worker --loglevel=INFO"
+      dockerfile: worker/Dockerfile
+    command: "watchmedo auto-restart -d worker/ -p '*.py' --recursive -- celery -A core.addons worker --loglevel=INFO"
     volumes:
       - .:/netorc/
     depends_on:

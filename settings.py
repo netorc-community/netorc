@@ -46,7 +46,7 @@ class Settings(BaseSettings):
     syslog_port: int = 514
 
     # Default task directory.
-    task_dir: DirectoryPath = "worker_service/tasks"
+    task_dir: DirectoryPath = "worker/tasks"
 
     class Config:
         """Modify the behaviour of settings management"""
