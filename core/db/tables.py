@@ -11,7 +11,7 @@ class User(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     firstname: Optional[str]
     lastname: Optional[str]
-    email: str
+    email: Optional[str]
     username: str = Field(index=True)
     password: str
     api_key: str
