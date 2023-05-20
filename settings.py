@@ -16,13 +16,13 @@ class Settings(BaseSettings):
     # Header key used for authentication.
     api_key_header = "netorc-x-token"
 
-    # We do NOT recommend to change this setting.
-    database: PostgresDsn = "postgresql://netorc:netorc123@postgres:5432/netorc"
+    # We recommend changing the postgres db credentials.
+    database: PostgresDsn = "postgresql://netorc:netorc123@netorc-postgres:5432/netorc"
 
-    # We do NOT recommend to change this setting.
-    redis: RedisDsn = "redis://redis:6379"  # TODO: redis or rediss
+    # We recommend changing the redis credentials.
+    redis: RedisDsn = "redis://netorc-redis:6379"  # TODO: redis or rediss
 
-    # Ensure this is the correct timezone.
+    # Check this is the correct timezone.
     timezone: str = "Europe/London"
     utc: bool = True
 
