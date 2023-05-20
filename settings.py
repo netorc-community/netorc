@@ -36,9 +36,9 @@ class Settings(BaseSettings):
     priority_levels: int = 10  # 0-9
 
     # Log outputs
-    log_console = True
-    log_file = True
-    log_syslog = True
+    log_console: bool = True
+    log_file: bool = True
+    log_syslog: bool = True
 
     # The default log level is set to info.
     # To change this value, see: https://docs.python.org/3/library/logging.html#logging-levels
