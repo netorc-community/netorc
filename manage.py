@@ -10,7 +10,7 @@ from sqlmodel import SQLModel
 from core import db
 from core.db import tables
 from core.metrics.logging import logger
-from core.security.password import password_enforcer
+from core.security.password import password_validator
 
 
 def main(session=next(db.get_session())):
@@ -28,7 +28,7 @@ def main(session=next(db.get_session())):
 
         while True:
             password = getpass.getpass(prompt="password: ")
-            if not password_enforcer(password):
+            if not password_validator(password):
                 print("Password does not meet security requirements, please try again.")
             else:
                 break
@@ -37,7 +37,7 @@ def main(session=next(db.get_session())):
 
         while True:
             api_key = getpass.getpass(prompt="api key: ")
-            if not password_enforcer(api_key):
+            if not password_validator(api_key):
                 print("API key does not meet security requirements, please try again.")
             else:
                 break
