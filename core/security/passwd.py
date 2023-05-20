@@ -1,4 +1,4 @@
-def password_validator(password: str):
+def validator(password: str):
     special_characters = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
 
     if len(password) <= 8:
