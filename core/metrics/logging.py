@@ -1,7 +1,7 @@
 """
 logger.py
 """
-import logging
+import logging, logging.handlers
 
 from settings import settings
 
