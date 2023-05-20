@@ -4,11 +4,11 @@ decorators.py
 from functools import wraps
 
 from core.addons.exceptions import AddLockException
-from core.addons.tasklock import TaskLock
 from core.metrics.logging import logger
+from core.task.lock import TaskLock
 
 
-def task_lock(func):
+def lock_task(func):
     """Applied to tasks which require synchronous execution.
     Workers will acquire a lock on the task before execution.
     """
