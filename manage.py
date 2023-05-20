@@ -10,6 +10,7 @@ from sqlmodel import SQLModel
 from core import db
 from core.db import tables
 from core.metrics.logging import logger
+from core.security import secret
 
 
 def main(session=next(db.get_session())):
@@ -27,14 +28,14 @@ def main(session=next(db.get_session())):
 
         while True:
             password = getpass.getpass(prompt="password: ")
-            if not passwd.validator(password):
+            if not secret.validator(password):
                 print("Password does not meet security requirements, please try again.")
             else:
                 break
 
         while True:
             api_key = getpass.getpass(prompt="api key: ")
-            if not passwd.validator(api_key):
+            if not secret.validator(api_key):
                 print("API key does not meet security requirements, please try again.")
             else:
                 break
