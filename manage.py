@@ -10,7 +10,6 @@ from sqlmodel import SQLModel
 from core import db
 from core.db import tables
 from core.metrics.logging import logger
-from core.security import passwd
 
 
 def main(session=next(db.get_session())):
