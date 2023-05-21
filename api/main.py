@@ -9,7 +9,7 @@ fastapi = FastAPI(title="NetORC", version="0.0.1")
 # from api.headers import require_general_authentication_header
 # dependencies=[require_general_authentication_header]
 fastapi.include_router(service.router)
-fastapi.mount("/static", StaticFiles(directory="core/landing/page"))
+fastapi.mount("/static", StaticFiles(directory="api/landing/page"))
 
 
 @fastapi.exception_handler(APIException)
@@ -49,5 +49,5 @@ async def exception_handler(request: Request, exc: APIException):
 
 @fastapi.get("/", response_class=HTMLResponse)
 async def landing_page():
-    with open("core/landing/page/html/landing.html", "r") as html:
+    with open("api/landing/page/html/landing.html", "r") as html:
         return html.read()
