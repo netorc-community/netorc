@@ -19,8 +19,12 @@ def main(session=next(db.get_session())):
     args = parser.parse_args()
 
     if args.action == "migrate":
-        SQLModel.metadata.create_all(db.engine)
-        logger.info("Successfully migrated tables to database")
+        try:
+            SQLModel.metadata.create_all(db.engine)
+            logger.info("Successfully migrated tables to database")
+        except Exception as exc:
+            logger.error("Error migrating tables to database: %s", exc)
+            raise
 
     if args.action == "createsuperuser":
         superuser = tables.User()
