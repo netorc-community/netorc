@@ -12,6 +12,16 @@ from settings import settings
 
 
 async def general_http_headers(response: Response) -> Any:
+    """
+    Adds keys,values to response headers. E.g, Cache-Control
+
+    Args:
+        response: starlette response object
+
+    Returns:
+        None
+
+    """
     response.headers["cache-control"] = "no-cache, no-store"
 
 
