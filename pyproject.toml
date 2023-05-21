@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "netorc"
-version = "0.1"
+version = "Alpha"
 description = ""
 authors = ["Antonió <antonio@netorc.dev>"]
 license = "Apache-2.0 license"
@@ -23,3 +23,6 @@ pytest = "^7.3.1"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[pytest]
+testpaths = "/tests"
