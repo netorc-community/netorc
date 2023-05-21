@@ -7,21 +7,6 @@ executing the task.
 
 for more information, see <link>
 
-@celery.task()
-@lock_task
-def a_locked_task() -> None:
-    print("Starting a task with task_lock...")
-    time.sleep(10)
-    print("Finished task with task_lock.")
-
-
-@celery.task()
-@lock_task
-def a_locked_task(task_lock_key: str = None) -> None:
-    print(f"Starting task: {task_lock_key}, with task_lock...")
-    time.sleep(10)
-    print(f"Finished task: {task_lock_key}, with task_lock.")
-
 """
 import time
 
