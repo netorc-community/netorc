@@ -3,7 +3,7 @@ decorators.py
 """
 from functools import wraps
 
-from core.addons.exceptions import AddLockException
+from core.addons.exceptions import TaskLockAddError
 from core.metrics.logging import logger
 from core.task.lock import TaskLock
 
@@ -40,7 +40,7 @@ def lock_task(func):
 
             lock.add()
 
-        except AddLockException as exc:
+        except TaskLockAddError as exc:
             logger.error(
                 "Unable to add lock for task: %s, with key: %s",
                 func.__name__,

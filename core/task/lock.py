@@ -6,7 +6,7 @@ import uuid
 
 import redis
 
-from core.addons.exceptions import AddLockException
+from core.addons.exceptions import TaskLockAddError
 from core.metrics.logging import logger
 from settings import settings
 
@@ -49,7 +49,7 @@ class TaskLock:
                     self.uid,
                 )
                 raise exc
-        raise AddLockException
+        raise TaskLockAddError
 
     def remove(self):
         """Remove the lock

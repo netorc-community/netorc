@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
 from api.services import service
-from core.addons.exceptions import APIException
+from core.addons.exceptions import APIError
 
 fastapi = FastAPI(title="NetORC", version="0.0.1")
 # from api.headers import require_general_authentication_header
@@ -12,10 +12,10 @@ fastapi.include_router(service.router)
 fastapi.mount("/static", StaticFiles(directory="api/landing/page"))
 
 
-@fastapi.exception_handler(APIException)
-async def exception_handler(request: Request, exc: APIException):
+@fastapi.exception_handler(APIError)
+async def exception_handler(request: Request, exc: APIError):
     """
-    Exception handler for APIException. Ensures meaningful errors are sent to users/systems.
+    Exception handler for APIError. Ensures meaningful errors are sent to users/systems.
 
     Args:
         request: The request object.

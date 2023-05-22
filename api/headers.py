@@ -5,7 +5,7 @@ from fastapi.security.api_key import APIKeyHeader
 from passlib.hash import pbkdf2_sha256
 from sqlmodel import Session, select
 
-from core.addons.exceptions import APIException
+from core.addons.exceptions import APIError
 from core.db import get_session
 from core.db.tables import User
 from settings import settings
@@ -49,9 +49,9 @@ def general_authentication_header(api_key: str = Security(api_key_header),
                  x.api_key.startswith("$pbkdf2-sha256") and pbkdf2_sha256.verify(api_key, x.api_key)]
         # Delay is caused if key is not in the pbkdf2 format passlib expects.
         if not check:
-            raise APIException(status_code=401, code="tbd", reason="tbd")
+            raise APIError(status_code=401, code="tbd", reason="tbd")
     except Exception as exc:
-        raise APIException(status_code=500, code="tbd", reason="tbd") from exc
+        raise APIError(status_code=500, code="tbd", reason="tbd") from exc
 
 
 require_general_authentication_header = Depends(general_authentication_header)

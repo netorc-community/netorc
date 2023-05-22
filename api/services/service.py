@@ -6,7 +6,7 @@ from typing import List
 from fastapi import APIRouter, Depends
 from sqlmodel import Session, select
 
-from core.addons.exceptions import APIException
+from core.addons.exceptions import APIError
 from core.db import get_session
 from core.db.tables import Service
 
@@ -36,7 +36,7 @@ def get_service(id: str = None, session: Session = Depends(get_session)) -> list
         if id is not None:
             service = session.get(Service, id)
             if not service:
-                raise APIException(status_code=404, code="tbd", reason="tbd")
+                raise APIError(status_code=404, code="tbd", reason="tbd")
             return [service]
 
         query = select(Service)
@@ -44,7 +44,7 @@ def get_service(id: str = None, session: Session = Depends(get_session)) -> list
         return [x for x in result]
 
     except Exception as exc:
-        raise APIException(status_code=500, code="tbd", reason="tbd") from exc
+        raise APIError(status_code=500, code="tbd", reason="tbd") from exc
 
 
 @router.post("/service", response_model=List[Service])
