@@ -43,6 +43,9 @@ def get_service(id: str = None, session: Session = Depends(get_session)) -> list
         result = session.exec(query)
         return [x for x in result]
 
+    except APIError:
+        raise
+
     except Exception as exc:
         raise APIError(status_code=500, code="tbd", reason="tbd") from exc
 
