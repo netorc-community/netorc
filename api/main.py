@@ -2,13 +2,14 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
-from api.services import service
+from api.services import service, admin
 from core.addons.exceptions import APIError
 
 fastapi = FastAPI(title="NetORC", version="0.0.1")
 # from api.headers import require_general_authentication_header
 # dependencies=[require_general_authentication_header]
 fastapi.include_router(service.router)
+fastapi.include_router(admin.router)
 fastapi.mount("/static", StaticFiles(directory="api/landing/page"))
 
 
