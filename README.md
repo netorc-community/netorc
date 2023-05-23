@@ -7,7 +7,7 @@
 ### Features
 
 - Open API with predefined endpoints, workflows, and security measures.
-- Easily perform actions through a user-friendly command line interface.
+- Easily perform administrative actions through a command-line utility.
 - Scheduling and queuing of tasks, which are executed on dedicated worker nodes.
 - Customisable add-ons specifically designed for network use cases.
 - Integrates with widely recognized tools commonly used in the industry.
