@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from api.services import service, admin
 from core.addons.exceptions import APIError
 
-fastapi = FastAPI(title="NetORC", version="0.0.1")
+fastapi = FastAPI(title="NetORC", version="pre-release")
 # from api.headers import require_general_authentication_header
 # dependencies=[require_general_authentication_header]
 fastapi.include_router(service.router)
