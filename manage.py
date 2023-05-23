@@ -4,27 +4,17 @@ manage.py
 import argparse
 import getpass
 
-from passlib.hash import pbkdf2_sha256
-from sqlmodel import SQLModel
-
-from core import db
-from core.db import tables
-from core.metrics.logging import logger
-from core.security import secret
+from core.db import tables, migrate
+from core.security import secret, user
 
 
-def main(session=next(db.get_session())):
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("action", choices=["migrate", "createsuperuser"])
     args = parser.parse_args()
 
     if args.action == "migrate":
-        try:
-            SQLModel.metadata.create_all(db.engine)
-            logger.info("Successfully migrated tables to database")
-        except Exception as exc:
-            logger.error("Error migrating tables to database: %s", exc)
-            raise
+        migrate.migrate()
 
     if args.action == "createsuperuser":
         superuser = tables.User()
@@ -35,6 +25,7 @@ def main(session=next(db.get_session())):
             if not secret.validator(password):
                 print("Password does not meet security requirements, please try again.")
             else:
+                superuser.password = password
                 break
 
         while True:
@@ -42,20 +33,11 @@ def main(session=next(db.get_session())):
             if not secret.validator(api_key):
                 print("API key does not meet security requirements, please try again.")
             else:
+                superuser.api_key = api_key
                 break
 
-        superuser.password = pbkdf2_sha256.hash(password)
-        superuser.api_key = pbkdf2_sha256.hash(api_key)
-
-        try:
-            session.add(superuser)
-            session.commit()
-
-        except Exception as exc:
-            logger.error("Error creating superuser: %s", exc)
-            raise
-
-        logger.info("Superuser: %s, created", superuser.username)
+        if user.create_user(superuser) is True:
+            print(f"User: {superuser.username}, created.")
 
 
 if __name__ == "__main__":
