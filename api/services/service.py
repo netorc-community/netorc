@@ -20,7 +20,6 @@ router = APIRouter(
 def get_service(id: str = None, session: Session = Depends(get_session)) -> list:
     """
     Returns a list of service/'s from the db.
-    Arguments can be included in the uri to be added to the db query.
 
     Args:
         id: an optional service id filter.
