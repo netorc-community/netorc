@@ -1,4 +1,4 @@
-def validator(secret: str):
+def validator(secret: str) -> bool:
     """
     Validates a secret string meets security conditions.
 
