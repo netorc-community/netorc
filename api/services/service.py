@@ -34,14 +34,16 @@ def get_service(id: str = None, session: Session = Depends(get_session)) -> list
     """
     try:
         if id is not None:
-            service = session.get(Service, id)
-            if not service:
-                raise APIError(status_code=404, code="tbd", reason="tbd")
-            return [service]
+            with session as _session:
+                service = _session.get(Service, id)
+                if not service:
+                    raise APIError(status_code=404, code="tbd", reason="tbd")
+                return [service]
 
         query = select(Service)
-        result = session.exec(query)
-        return [x for x in result]
+        with session as _session:
+            result = _session.exec(query)
+            return [x for x in result]
 
     except APIError:
         raise
