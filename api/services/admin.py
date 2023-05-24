@@ -16,14 +16,13 @@ router = APIRouter(prefix="/api/admin/v1", tags=["Administration"])
 def get_users(username: str = None, session: Session = Depends(db.get_session)) -> list:
     """
     Returns a list of user/'s from the db.
-    Arguments can be included in the uri to be added to the db query.
 
     Args:
         username: an optional username filter.
         session: db session dependency.
 
     Returns:
-        A list of dictionary/s containing attributes for a user/s.
+        Dictionary/s enclosed in a list containing attributes for a user/s.
 
     Raises:
         APIException: 500 status code.
@@ -52,6 +51,19 @@ def get_users(username: str = None, session: Session = Depends(db.get_session)) 
 
 @router.post("/users", response_model=UserRead)
 def post_users(user_create: UserCreate):
+    """
+    Creates new users.
+
+    Args:
+        user_create: UserCreate object.
+
+    Returns:
+        db_user: database User object.
+
+    Raises:
+        APIException: 500 status code.
+
+    """
     user = User()
     user_data = user_create.dict(exclude_unset=True)
     for k, v in user_data.items():
