@@ -5,7 +5,8 @@ import argparse
 import getpass
 
 from core.db import tables, migrate
-from core.security import secret, user
+from core.security import secret
+from core.security.user import create_user
 
 
 def main():
@@ -18,10 +19,10 @@ def main():
 
     if args.action == "createsuperuser":
         superuser = tables.User()
-        superuser.username = input("username: ")
+        superuser.username = input("Username: ")
 
         while True:
-            password = getpass.getpass(prompt="password: ")
+            password = getpass.getpass(prompt="Password: ")
             if not secret.validator(password):
                 print("Password does not meet security requirements, please try again.")
             else:
@@ -29,15 +30,19 @@ def main():
                 break
 
         while True:
-            api_key = getpass.getpass(prompt="api key: ")
+            api_key = getpass.getpass(prompt="API key: ")
             if not secret.validator(api_key):
                 print("API key does not meet security requirements, please try again.")
             else:
                 superuser.api_key = api_key
                 break
 
-        if user.create_user(superuser) is True:
-            print(f"User: {superuser.username}, created.")
+        try:
+            db_superuser = create_user(superuser)
+            print(f"User: {db_superuser.username}, created.")
+
+        except Exception:
+            raise
 
 
 if __name__ == "__main__":
