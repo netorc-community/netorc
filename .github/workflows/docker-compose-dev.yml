@@ -1,0 +1,14 @@
+name: Docker Compose Dev
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Make local logs directory
+        run: mkdir logs && touch logs/netorc.log && chmod 777 logs/netorc.log
+      - name: Run docker compose file
+        run: docker compose -f docker-compose.dev.yml up -d
+
