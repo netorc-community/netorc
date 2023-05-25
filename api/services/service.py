@@ -40,7 +40,11 @@ def get_services(id: str = None, session: Session = Depends(require_db_session))
 
         query = select(Service)
         result = session.exec(query)
-        return [x for x in result]
+        services = [x for x in result]
+        if not services:
+            raise APIError(status_code=404, code="Get Services", reason="No services found")
+
+        return services
 
     except APIError:
         raise

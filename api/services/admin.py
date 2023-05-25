@@ -28,7 +28,6 @@ def get_users(username: str = None, session: Session = Depends(db.require_db_ses
         APIException: 500 status code.
     """
     try:
-
         if username is not None:
             user = session.get(User, username)
             if not user:
@@ -38,7 +37,9 @@ def get_users(username: str = None, session: Session = Depends(db.require_db_ses
 
         query = select(User)
         result = session.exec(query)
-        return [x for x in result]
+        users = [x for x in result]
+        if not users:
+            raise APIError(status_code=404, code="Get Users", reason="No users found")
 
     except APIError:
         raise
