@@ -13,7 +13,7 @@ router = APIRouter(prefix="/api/admin/v1", tags=["Administration"])
 
 
 @router.get("/users", response_model=List[UserRead])
-def get_users(username: str = None, session: Session = Depends(db.get_session)) -> list:
+def get_users(username: str = None, session: Session = Depends(db.require_db_session)) -> list:
     """
     Returns a list of user/'s from the db.
 
@@ -28,25 +28,24 @@ def get_users(username: str = None, session: Session = Depends(db.get_session)) 
         APIException: 500 status code.
     """
     try:
-
         if username is not None:
-            with session as _session:
-                user = _session.get(User, username)
-                if not user:
-                    raise APIError(status_code=404, code="tbd", reason="tbd")
+            user = session.get(User, username)
+            if not user:
+                raise APIError(status_code=404, code="Get Users", reason="User not found")
 
-                return [user]
+            return [user]
 
         query = select(User)
-        with session as _session:
-            result = _session.exec(query)
-            return [x for x in result]
+        result = session.exec(query)
+        users = [x for x in result]
+        if not users:
+            raise APIError(status_code=404, code="Get Users", reason="No users found")
 
     except APIError:
         raise
 
     except Exception as exc:
-        raise APIError(status_code=500, code="tbd", reason="tbd") from exc
+        raise APIError(status_code=500, code="Get Users", reason="Runtime error occurred") from exc
 
 
 @router.post("/users", response_model=UserRead)
@@ -74,7 +73,7 @@ def post_users(user_create: UserCreate):
         return db_user
 
     except Exception as exc:
-        raise APIError(status_code=500, code="tbd", reason="tbd") from exc
+        raise APIError(status_code=500, code="Post User", reason="Runtime error occurred") from exc
 
 
 @router.patch("/users")
