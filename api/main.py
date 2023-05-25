@@ -2,20 +2,21 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
-from api_service.services import service
-from miscellaneous.addons.exceptions import APIException
+from api.services import service, admin
+from core.addons.exceptions import APIError
 
-fastapi = FastAPI(title="NetORC", version="0.0.1")
-# from api_service.headers import require_general_authentication_header
+fastapi = FastAPI(title="NetORC", version="pre-release")
+# from api.headers import require_general_authentication_header
 # dependencies=[require_general_authentication_header]
 fastapi.include_router(service.router)
-fastapi.mount("/static", StaticFiles(directory="miscellaneous/landing/page"))
+fastapi.include_router(admin.router)
+fastapi.mount("/static", StaticFiles(directory="api/landing/page"))
 
 
-@fastapi.exception_handler(APIException)
-async def exception_handler(request: Request, exc: APIException):
+@fastapi.exception_handler(APIError)
+async def exception_handler(request: Request, exc: APIError):
     """
-    Exception handler for APIException. Ensures meaningful errors are sent to users/systems.
+    Exception handler for APIError. Ensures meaningful errors are sent to users/systems.
 
     Args:
         request: The request object.
@@ -49,5 +50,5 @@ async def exception_handler(request: Request, exc: APIException):
 
 @fastapi.get("/", response_class=HTMLResponse)
 async def landing_page():
-    with open("miscellaneous/landing/page/html/landing.html", "r") as html:
+    with open("api/landing/page/html/landing.html", "r") as html:
         return html.read()

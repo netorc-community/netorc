@@ -6,8 +6,8 @@ import uuid
 
 import redis
 
-from miscellaneous.addons.exceptions import AddLockException
-from miscellaneous.metrics.logging import logger
+from core.addons.exceptions import TaskLockAddError
+from core.metrics.logging import logger
 from settings import settings
 
 
@@ -17,8 +17,9 @@ class TaskLock:
     def __init__(self, task_lock_key: str = None, timeout: int = 30):
         try:
             self.conn = redis.from_url(settings.redis)
+            self.conn.ping()
             logger.info("Connected to redis instance: %s", settings.redis)
-        except Exception as exc:
+        except redis.exceptions.ConnectionError as exc:
             logger.critical(
                 "An exception occurred connecting to redis instance: %s",
                 settings.redis,
@@ -48,7 +49,7 @@ class TaskLock:
                     self.uid,
                 )
                 raise exc
-        raise AddLockException
+        raise TaskLockAddError
 
     def remove(self):
         """Remove the lock

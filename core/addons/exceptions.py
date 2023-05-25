@@ -3,7 +3,7 @@ exceptions.py
 """
 
 
-class APIException(Exception):
+class APIError(Exception):
     def __init__(
             self,
             status_code: int,
@@ -19,7 +19,7 @@ class APIException(Exception):
         self.reference_error = reference_error
 
 
-class AddLockException(Exception):
+class TaskLockAddError(Exception):
     def __init__(self):
         self.message = (
             "Unable to add lock to task. A task using the same key is running."

@@ -8,11 +8,10 @@ from sqlmodel import Field, SQLModel
 
 
 class User(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    username: str = Field(index=True, primary_key=True)
     firstname: Optional[str]
     lastname: Optional[str]
-    email: str
-    username: str = Field(index=True)
+    email: Optional[str]
     password: str
     api_key: str
     created: datetime = Field(default_factory=datetime.utcnow, nullable=False)

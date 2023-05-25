@@ -16,13 +16,13 @@ class Settings(BaseSettings):
     # Header key used for authentication.
     api_key_header = "netorc-x-token"
 
-    # We do NOT recommend to change this setting.
-    database: PostgresDsn = "postgresql://netorc:netorc123@postgres:5432/netorc"
+    # We recommend changing the postgres db credentials.
+    database: PostgresDsn = "postgresql://netorc:netorc123@netorc-postgres:5432/netorc"
 
-    # We do NOT recommend to change this setting.
-    redis: RedisDsn = "redis://redis:6379"  # TODO: redis or rediss
+    # We recommend changing the redis credentials.
+    redis: RedisDsn = "redis://netorc-redis:6379"  # TODO: redis or rediss
 
-    # Ensure this is the correct timezone.
+    # Check this is the correct timezone.
     timezone: str = "Europe/London"
     utc: bool = True
 
@@ -35,6 +35,11 @@ class Settings(BaseSettings):
     # We do NOT recommend to change this setting.
     priority_levels: int = 10  # 0-9
 
+    # Log outputs
+    log_console: bool = True
+    log_file: bool = True
+    log_syslog: bool = True
+
     # The default log level is set to info.
     # To change this value, see: https://docs.python.org/3/library/logging.html#logging-levels
     log_level: int = 20
@@ -46,7 +51,7 @@ class Settings(BaseSettings):
     syslog_port: int = 514
 
     # Default task directory.
-    task_dir: DirectoryPath = "worker_service/tasks"
+    task_dir: DirectoryPath = "worker/tasks"
 
     class Config:
         """Modify the behaviour of settings management"""

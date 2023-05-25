@@ -3,16 +3,14 @@
 #
 version: "3.8"
 services:
-
-  api-service:
-    container_name: api-service
+  netorc-api:
     build:
       context: ./
-      dockerfile: ./api_service/Dockerfile
+      dockerfile: api/Dockerfile
     ports:
       - 8000:80
     restart: unless-stopped
-    command: "uvicorn api_service.main:fastapi --reload --port 80 --host 0.0.0.0"
+    command: "uvicorn api.main:fastapi --reload --port 80 --host 0.0.0.0"
     volumes:
       - .:/netorc/
     deploy:
@@ -21,20 +19,18 @@ services:
           cpus: "0.5"
           memory: 100M
 
-  redis:
-    container_name: netorc-redis
+  netorc-redis:
     image: redis:6.2-bullseye
     restart: unless-stopped
     depends_on:
-      - api-service
+      - netorc-api
     deploy:
       resources:
         limits:
           cpus: "0.5"
           memory: 100M
 
-  postgres:
-    container_name: netorc-postgres
+  netorc-postgres:
     image: postgres:15.2-bullseye
     restart: unless-stopped
     environment:
@@ -44,25 +40,24 @@ services:
     ports:
       - 5432:5432
     depends_on:
-      - api-service
+      - netorc-api
     deploy:
       resources:
         limits:
           cpus: "0.5"
           memory: 100M
 
-  worker-service:
-    container_name: worker-service
+  netorc-worker:
     build:
       context: ./
-      dockerfile: ./worker_service/Dockerfile
-    command: "watchmedo auto-restart -d worker_service/ -p '*.py' --recursive -- celery -A miscellaneous.addons worker --loglevel=INFO"
+      dockerfile: worker/Dockerfile
+    command: "watchmedo auto-restart -d worker/ -p '*.py' --recursive -- celery -A core.addons worker --loglevel=INFO"
     volumes:
       - .:/netorc/
     depends_on:
-      - api-service
-      - redis
-      - postgres
+      - netorc-api
+      - netorc-redis
+      - netorc-postgres
     restart: unless-stopped
     deploy:
       resources:

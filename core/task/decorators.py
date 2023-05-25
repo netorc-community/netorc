@@ -3,12 +3,12 @@ decorators.py
 """
 from functools import wraps
 
-from miscellaneous.addons.exceptions import AddLockException
-from miscellaneous.addons.tasklock import TaskLock
-from miscellaneous.metrics.logging import logger
+from core.addons.exceptions import TaskLockAddError
+from core.metrics.logging import logger
+from core.task.lock import TaskLock
 
 
-def task_lock(func):
+def lock_task(func):
     """Applied to tasks which require synchronous execution.
     Workers will acquire a lock on the task before execution.
     """
@@ -40,7 +40,7 @@ def task_lock(func):
 
             lock.add()
 
-        except AddLockException as exc:
+        except TaskLockAddError as exc:
             logger.error(
                 "Unable to add lock for task: %s, with key: %s",
                 func.__name__,

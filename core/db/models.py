@@ -1,17 +1,17 @@
 """
 models.py
 """
-
+from datetime import datetime
 from typing import Optional
 
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel
 
 
 class UserCreate(SQLModel):
     firstname: Optional[str]
     lastname: Optional[str]
-    email: str
-    username: str = Field(index=True)
+    email: Optional[str]
+    username: str
     password: str
     api_key: str
 
@@ -19,5 +19,7 @@ class UserCreate(SQLModel):
 class UserRead(SQLModel):
     firstname: Optional[str]
     lastname: Optional[str]
-    email: str
-    username: str = Field(index=True)
+    email: Optional[str]
+    username: str
+    created: datetime
+    last_updated: datetime
