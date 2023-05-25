@@ -19,11 +19,16 @@ def create_user(user: User, session: Callable = db.get_session):
     Returns:
         user: database user object
     """
+
     user.password = pbkdf2_sha256.hash(user.password)
     user.api_key = pbkdf2_sha256.hash(user.api_key)
 
     with session() as _session:
-        _session.add(user)
-        _session.commit()
-        logger.info("User: %s, created", user.username)
-        return user
+        try:
+            _session.add(user)
+            _session.commit()
+            logger.info("User: %s, created", user.username)
+            return user
+
+        except Exception as exc:
+            raise
