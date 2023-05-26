@@ -1,10 +1,14 @@
 """
 tables.py
 """
+
 from datetime import datetime
 from typing import Optional
 
 from sqlmodel import Field, SQLModel
+
+from core import db
+from core.metrics.logging import logger
 
 
 class User(SQLModel, table=True):
@@ -37,3 +41,26 @@ class ServiceType(SQLModel, table=True):
     description: str = Field(max_length=256, default=None)
     version: Optional[int] = Field(default=None)  # Service specific version
     href: str
+
+
+def create() -> bool:
+    """
+    Creates local SQLModel tables in database
+
+    Args:
+
+    Raises:
+
+    Returns:
+        bool: True
+
+    """
+
+    try:
+        SQLModel.metadata.create_all(db.engine)
+        logger.info("Successfully migrated tables to database")
+        return True
+
+    except Exception as exc:
+        logger.error("Error migrating tables to database: %s", exc)
+        raise
