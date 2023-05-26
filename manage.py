@@ -19,7 +19,13 @@ def main():
 
     if args.action == "createsuperuser":
         superuser = tables.User()
-        superuser.username = input("Username: ")
+
+        while True:
+            superuser.username = input("Username: ")
+            if not superuser.username:
+                print("Username cannot be blank, please try again")
+            else:
+                break
 
         while True:
             password = getpass.getpass(prompt="Password: ")
