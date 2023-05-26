@@ -4,18 +4,18 @@ manage.py
 import argparse
 import getpass
 
-from core.db import tables, migrate
+from core.db import tables
 from core.security import secret
 from core.security.user import create_user
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["migrate", "createsuperuser"])
+    parser.add_argument("action", choices=["createtables", "createsuperuser"])
     args = parser.parse_args()
 
-    if args.action == "migrate":
-        migrate.migrate()
+    if args.action == "createtables":
+        tables.create()
 
     if args.action == "createsuperuser":
         superuser = tables.User()
