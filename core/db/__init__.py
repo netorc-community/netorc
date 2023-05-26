@@ -4,7 +4,7 @@ from sqlmodel import create_engine, Session
 
 from settings import settings
 
-engine = create_engine(settings.database, echo=True)
+engine = create_engine(settings.database)
 
 
 def require_db_session():
