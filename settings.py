@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     """NetORC settings management"""
 
     # Header key used for authentication.
-    api_key_header = "netorc-x-token"
+    api_key_header: str = "netorc-x-token"
 
     # We recommend changing the postgres db credentials.
     database: PostgresDsn = "postgresql://netorc:netorc123@netorc-postgres:5432/netorc"
